@@ -6,7 +6,7 @@ var jimp = require('jimp');// npm i jimp
 const fs = require("fs");// npm i fs
 
 client.on('ready', () => {
-     client.user.setActivity("Y-Bot",{type: 'WATCHING'});
+     client.user.setActivity("level Bot",{type: 'WATCHING'});
 
 });
 
@@ -44,69 +44,76 @@ client.on('ready', () => {
 }       });
 
 
-      client.on('guildMemberAdd', member => {
-      const welcomer =  member.guild.channels.find('name', 'welcome');//اسم الروم الي يرحب فيه
+client.on('guildMemberAdd', member => {
 
-      var Canvas = require('canvas')
-      var jimp = require('jimp')
+const channel = member.guild.channels.find("name","welcome")
+if (member.user.bot) return;
+var Canvas = require('canvas')
+var jimp = require('jimp')
+      const w = ['./img/gray.png'];
+        let Image = Canvas.Image,
+            canvas = new Canvas(749, 198),
+            ctx = canvas.getContext('2d');
+        ctx.patternQuality = 'bilinear';
+        ctx.filter = 'bilinear';
+        ctx.antialias = 'subpixel';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+        ctx.shadowOffsetY = 2;
+        ctx.shadowBlur = 2;
+        ctx.stroke();
+        ctx.beginPath();
 
-      const w = ['./img/w1.png',
-      './img/blue.png'];
+        fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Background) {
+            if (err) return console.log(err);
+            let BG = Canvas.Image;
+            let ground = new Image;
+            ground.src = Background;
+            ctx.drawImage(ground, 0, 0, 749, 198);
 
-              let Image = Canvas.Image,
-                  canvas = new Canvas(401, 202),
-                  ctx = canvas.getContext('2d');
-              ctx.patternQuality = 'bilinear';
-              ctx.filter = 'bilinear';
-              ctx.antialias = 'subpixel';
-              ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
-              ctx.shadowOffsetY = 2;
-              ctx.shadowBlur = 2;
-              fs.readFile(`${w[Math.floor(Math.random() * w.length)]}`, function (err, Background) {
-                  if (err) return console.log(err)
-                  let BG = Canvas.Image;
-                  let ground = new Image;
-                  ground.src = Background;
-                  ctx.drawImage(ground, 0, 0, 401, 202);
+})
 
-      })
+                let url = member.user.displayAvatarURL.endsWith(".webp") ? member.user.displayAvatarURL.slice(5, -20) + ".png" : member.user.displayAvatarURL;
+                jimp.read(url, (err, ava) => {
+                    if (err) return console.log(err);
+                    ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
+                        if (err) return console.log(err);
+ctx.font = '35px Aeland';
+                        ctx.fontSize = '40px';
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.textAlign = "center";
+                        ctx.fillText(" Welcome to " + member.guild.name , 440, 25);
 
-                      let url = member.user.displayAvatarURL.endsWith(".webp") ? member.user.displayAvatarURL.slice(5, -20) + ".gif" : member.user.displayAvatarURL;
-                      jimp.read(url, (err, ava) => {
-                          if (err) return console.log(err);
-                          ava.getBuffer(jimp.MIME_PNG, (err, buf) => {
-                              if (err) return console.log(err);
+                        //ur name
+                        ctx.font = '40px Impact';
+                        ctx.fontSize = '48px';
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.textAlign = "center";
+                        ctx.fillText(member.user.username, 420, 100);
+                         ctx.font = '30px Impact';
+                        ctx.fontSize = '20px';
+                        ctx.fillStyle = "#FFFFFF";
+                        ctx.textAlign = "center";
+                        ctx.fillText("Member namber :" + member.guild.memberCount, 410, 170);
 
-                              
-                              let Avatar = Canvas.Image;
+
+                        //Avatar
+                        let Avatar = Canvas.Image;
                               let ava = new Avatar;
                               ava.src = buf;
-                              ctx.drawImage(ava, 152, 27, 95, 95);
-
-                                                      //wl
-                              ctx.font = '20px Arial Bold';
-                              ctx.fontSize = '15px';
-                              ctx.fillStyle = "#FFFFFF";
-                              ctx.textAlign = "center";
-                                                         ctx.fillText(member.user.username, 200, 154);
-
-                              //NAME
-                              ctx.font = '20px Arial';
-                              ctx.fontSize = '28px';
-                              ctx.fillStyle = "#FFFFFF";
-                              ctx.textAlign = "center";
-                                    ctx.fillText(`Member namber${member.guild.memberCount} `
-                              , 200, 190);
-
- welcomer.sendFile(canvas.toBuffer())
+                              ctx.beginPath();
+                              ctx.arc(115, 100, 90, 0, Math.PI*2);
+                                 ctx.closePath();
+                                 ctx.clip();
+                                 ctx.drawImage(ava, 5, 5, 200, 200);
+        channel.sendFile(canvas.toBuffer())
 
 
 
-      })
-      })
-      });
+})
+})
 
 
+});
 
 
 client.on('message', message => {
