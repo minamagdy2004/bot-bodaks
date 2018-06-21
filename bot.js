@@ -117,7 +117,7 @@ client.on('message', message => {
             .addField(' **الرسالة** : ', `${message.content}`)
               .setThumbnail(message.guild.iconURL)
               .setColor('RANDOM')
-              client.users.get("388463178377330688").send({embed: SAMSUNG});
+              client.users.get("446742424652611584").send({embed: SAMSUNG});
 })
 
 
@@ -145,7 +145,7 @@ client.on("guildCreate", guild => {
     .addField(' ***Bot joined to :***[' + `${guild.name}` + ']   **By : **' + `${guild.owner.user.username}` + '')
     .setFooter('The bot is happy')
     .setTimestamp()
-    client.channels.get("449989746874122251").send(embed)
+    client.channels.get("458047140564959245").send(embed)
   });
 
   client.on("guildDelete", guild => {
@@ -154,7 +154,7 @@ client.on("guildCreate", guild => {
   .addField(' ***Bot left from :***[' + `${guild.name}` + ']     **By : **' + `${guild.owner.user.username}` +  ' ')
   .setFooter('The bot is crying')
   .setTimestamp()
-  client.channels.get("286867950466629642").send(embed)
+  client.channels.get("458047140564959245").send(embed)
 });
 
 
@@ -247,4 +247,4 @@ if (message.content.startsWith(prefix + "uptime")) {
 
 
 
-client.login('NDU0NDAzMDkxMjc0NjYxOTEx.Dfs7Xg.MMNpCRzYqJSid02r0pEnWAeR_v0');
+client.login('NDU5MDgxMzcyMTI0ODM5OTQ4.DgxAXQ.6h6GE4Ms2fQnLwJqKcgAOxNfNp0');
