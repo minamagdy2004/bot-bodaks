@@ -4,7 +4,7 @@ const client = new Discord.Client();
 const prefix = '+'
 client.on('ready', function(){
     var ms = 10000 ;
-    var setGame = [`+help `,`{client.guilds.size}`];
+    var setGame = [`+help `,`${client.guilds.size}`];
     var i = -1;
     var j = 0;
     setInterval(function (){
@@ -16,7 +16,7 @@ client.on('ready', function(){
         }
         i = i+j;
         client.user.setGame(setGame[i],`http://www.twitch.tv/KiNg66S`);
-    }, ms);100000
+    }, ms);10000
 
 });
 
@@ -3599,7 +3599,7 @@ client.on('message', msg => {
 }
 });
 
-client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.Dg2zlA.W-yO3V1eR9_Lu-QlhHsYyDLxARY");
+client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.Dg20rQ.N5PczT6NHqtSomdoINhwinpKObw");
 
 
 
