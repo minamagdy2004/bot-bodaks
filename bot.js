@@ -3,8 +3,8 @@ const bot = new Discord.Client();
 const client = new Discord.Client();
 const prefix = '+'
 client.on('ready', function(){
-    var ms = 100000 ;
-    var setGame = [`+help `,`${client.guilds.size}`];
+    var ms = 10000 ;
+    var setGame = [`+help `,`{client.guilds.size}`];
     var i = -1;
     var j = 0;
     setInterval(function (){
