@@ -80,7 +80,7 @@ client.on("message", message => {
 البوت يقوم بطرد من ينشر سيرفر تحذير
 
 `)
-('+bc' , 'كود هذا للبرودكاست')
+
      
    message.author.sendEmbed(embed)
    
@@ -3601,19 +3601,6 @@ client.on('message', msg => {
 }
 });
 
-
-client.on("message", message => {
-  if (message.content.startsWith("+bc")) {
-               if (!message.member.hasPermission("ADMINISTRATOR"))  return;
-let args = message.content.split(" ").slice(1);
-var argresult = args.join(' ');
-message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
-m.send(`${argresult}\n ${m}`);
-})
-message.channel.send(`\`${message.guild.members.filter( m => m.presence.status !== 'all').size}\` عدد الأشخاص `);
-message.delete();
-};
-});
 
 
 client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.Dg20rQ.N5PczT6NHqtSomdoINhwinpKObw");
