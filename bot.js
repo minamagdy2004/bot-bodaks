@@ -4,7 +4,7 @@ const client = new Discord.Client();
 const prefix = '+'
 client.on('ready', function(){
     var ms = 10000 ;
-    var setGame = [`+help `,`server ${client.guilds.size}`];
+    var setGame = [`+help ON ${client.guilds.size} Servers`,`+help ${client.users.size} Users`];
     var i = -1;
     var j = 0;
     setInterval(function (){
@@ -16,7 +16,7 @@ client.on('ready', function(){
         }
         i = i+j;
         client.user.setGame(setGame[i],`http://www.twitch.tv/KiNg66S`);
-    }, ms);10000
+    }, ms);
 
 });
 
@@ -3602,29 +3602,18 @@ client.on('message', msg => {
 });
 
 
-client.on('message', message => {
-  let embed = new Discord.RichEmbed()
-
-   let args = message.content.split(' ').slice(1).join(' ');
-    if(!message.channel.guild) return;
-if(message.content.split(' ')[0] == '+bc') {
-        message.react(":heavy_check_mark:️")
-         let embed = new Discord.RichEmbed()
-   .setColor("#FF00FF")
-   .setThumbnail(message.author.avatarURL)
-                                     .addField('تم الارسال بواسطة :', "<@" + message.author.id + ">")
-                message.channel.sendEmbed(embed);
-       message.guild.members.forEach(m => {
-           var bc = new Discord.RichEmbed()
-.addField('● Sender  :', *** → ${message.author.username}#${message.author.discriminator}***)
-           .addField('● Server  :', *** → ${message.guild.name}***)
-   .setColor('#ff0000')
-                .addField('ّ', args)
-           m.send(``,{embed: bc});
-       });
-   }
+client.on("message", message => {
+  if (message.content.startsWith("+bc")) {
+               if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+let args = message.content.split(" ").slice(1);
+var argresult = args.join(' ');
+message.guild.members.filter(m => m.presence.status !== 'all').forEach(m => {
+m.send(`${argresult}\n ${m}`);
 })
-
+message.channel.send(`\`${message.guild.members.filter( m => m.presence.status !== 'all').size}\` عدد الأشخاص `);
+message.delete();
+};
+});
 
 
 client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.Dg20rQ.N5PczT6NHqtSomdoINhwinpKObw");
