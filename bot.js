@@ -80,6 +80,8 @@ client.on("message", message => {
 البوت يقوم بطرد من ينشر سيرفر تحذير
 
 `)
+('+bc' , 'كود هذا للبرودكاست')
+     
    message.author.sendEmbed(embed)
    
    }
