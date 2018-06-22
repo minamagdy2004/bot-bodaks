@@ -199,7 +199,7 @@ client.on('message', message => {
 client.on('message', message => {
   if (true) {
 if (message.content === '+invite') {
-      message.author.send('https://discordapp.com/api/oauth2/authorize?client_id=457536673333379083&permissions=8&scope=bot').catch(e => console.log(e.stack));
+      message.author.send('https://discordapp.com/oauth2/authorize?client_id=459465648142286858&permissions=2146958583&scope=bot').catch(e => console.log(e.stack));
 
     }
    } 
@@ -3598,6 +3598,32 @@ client.on('message', msg => {
     }
 }
 });
+
+
+client.on('message', message => {
+  let embed = new Discord.RichEmbed()
+
+   let args = message.content.split(' ').slice(1).join(' ');
+    if(!message.channel.guild) return;
+if(message.content.split(' ')[0] == '+bc') {
+        message.react(":heavy_check_mark:️")
+         let embed = new Discord.RichEmbed()
+   .setColor("#FF00FF")
+   .setThumbnail(message.author.avatarURL)
+                                     .addField('تم الارسال بواسطة :', "<@" + message.author.id + ">")
+                message.channel.sendEmbed(embed);
+       message.guild.members.forEach(m => {
+           var bc = new Discord.RichEmbed()
+.addField('● Sender  :', *** → ${message.author.username}#${message.author.discriminator}***)
+           .addField('● Server  :', *** → ${message.guild.name}***)
+   .setColor('#ff0000')
+                .addField('ّ', args)
+           m.send(``,{embed: bc});
+       });
+   }
+})
+
+
 
 client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.Dg20rQ.N5PczT6NHqtSomdoINhwinpKObw");
 
