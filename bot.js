@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const client = new Discord.Client();
-const moment = require('moment');
+const client = new Discord.Client(); 
 var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 const fs = require("fs");// npm i fs
@@ -1338,33 +1337,6 @@ ctx.font = '35px Aeland';
 
 });
 
-    client.on('guildMemberAdd', member => {
-    const channel = member.guild.channels.find("name","welcome")	    
-    if (member.user.bot) return;
-     var args = message.content.split(" ").slice(1);
-     let user = message.mentions.users.first();
-     var men = message.mentions.users.first();
-        var heg;
-        if(men) {
-            heg = men
-        } else {
-            heg = message.author
-        }
-      var mentionned = message.mentions.members.first();
-         var h;
-        if(mentionned) {
-            h = mentionned
-        } else {
-            h = message.member
-        }
-               moment.locale('ar-TN');
-      var id = new  Discord.RichEmbed()
-    .setColor("RANDOM")
-    .addField(': انضمامك لسيرفر قبل', `${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')} \n \`${moment(h.joinedAt).fromNow()}\``, true)
-    .addField(': دخولك لديسكورد قبل', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm:ss')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
-   .setThumbnail(message.author.avatarURL)
-    message.channel.send(id)
-}       });
 
 
 client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.DhBpxQ.Jf5M1doGbnPYR9NpkKw7X8hcMjU");
