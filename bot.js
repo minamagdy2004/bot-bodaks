@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const client = new Discord.Client();
+const YTDL = require('ytdl-core')
+const profanities = require ('profanities')
 const prefix = '+'
 client.on('ready', function(){
     var ms = 10000 ;
@@ -3676,7 +3678,7 @@ client.on('message', msg => {
 
 
 
-client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.Dg20rQ.N5PczT6NHqtSomdoINhwinpKObw");
+client.login("NDU4MzkzMzMzNzU3MTE2NDM3.Dg_Feg.yzpK8ZXxo-QPZ6dQcmK-D7ae0Ek");
 
 
 
