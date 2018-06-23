@@ -76,6 +76,7 @@ client.on("message", message => {
 ('+unbans' , 'لفك باند عن جميع')
 ('لاتخيار الوان الذي تريده' , 'لون')
 ('+owner' , 'كود تأكد من ملكيه البوت')
+('+warn' , 'لتحذير شخص')
 تحذير :البوت يمتلك لوق يعمل في روم يسمى log
 البوت يقوم بطرد من ينشر سيرفر تحذير
 
@@ -207,6 +208,19 @@ if (message.content === '+invite') {
    } 
   });
 
+client.on('message', function(message) {
+    if (message.channel.type === "=m") {
+        if (message.author.id === client.user.id) return;
+        var norElden = new Discord.RichEmbed()
+            .setColor('RANDOM')
+            .setTimestamp()
+            .setTitle('``رساله جديده في خاص البوت``')
+            .setThumbnail(`${message.author.avatarURL}`)
+            .setDescription(`\n\n\`\`\`${message.content}\`\`\``)
+            .setFooter(`من (@${message.author.tag})  |  (${message.author.id})`)
+        client.channels.get("457626922633920512").send({ embed: norElden });
+    }
+});
 
 client.on('message', message => {
      if (message.content === "+invite") {
@@ -1559,8 +1573,67 @@ m.delete();
 omar.reply("`تم حذف الرومات بنجاح`")
 }// omar jedol / Codes
 });
-	
 
+var prefix = "+";
+client.on('message', message => {
+     if(message.author.bot) return;
+
+    if (!message.content.startsWith(prefix)) return;
+    let command = message.content.split(" ")[0];
+    command = command.slice(prefix.length);
+    if (command == "warn") {
+
+        if (!message.guild.member(message.author).hasPermission("MANAGE_MESSAGES")) return message.reply("**ما معك برمشن MANAGE MESSAGES**");
+    let args = message.content.split(" ").slice(1);
+                    let reason = message.content.split(" ").slice(2).join(" ");
+                if (message.mentions.users.size < 1) return message.reply("**منشن شخص**");
+        if (!reason) return message.reply("**اكتب سبب التحذير**");
+
+        message.channel.sendMessage(args.join("  "))
+        message.delete();
+
+
+    }
+
+});
+
+client.on('guildMemberAdd', member => {
+    let channel = member.guild.channels.find('name', 'welcome');
+    let memberavatar = member.user.avatarURL
+      if (!channel) return;
+    let embed = new Discord.RichEmbed()
+        .setColor('RANDOM')
+        .setThumbnail(memberavatar)
+        .addField(':running_shirt_with_sash: | name :  ',`${member}`)
+        .addField(':loudspeaker: | اطلق من دخل' , `Welcome to the server, ${member}`)
+        .addField(':id: | user :', "**[" + `${member.id}` + "]**" )
+                .addField('➡| انت العضو رقم',`${member.guild.memberCount}`)
+               
+                  .addField("Name:",`<@` + `${member.id}` + `>`, true)
+                     
+                                     .addField(' الـسيرفر', `${member.guild.name}`,true)
+                                       
+     .setFooter(`${member.guild.name}`)
+        .setTimestamp()
+   
+      channel.sendEmbed(embed);
+    });
+    
+    client.on('guildMemberRemove', member => {
+        var embed = new Discord.RichEmbed()
+        .setAuthor(member.user.username, member.user.avatarURL)
+        .setThumbnail(member.user.avatarURL)
+        .setTitle(`بس بعرف وين رحت؟؟؟ :raised_hand::skin-tone-1: :pensive:`)
+        .setDescription(`مع السلامه تشرفنا بك :raised_hand::skin-tone-1: :pensive: `)
+        .addField(':bust_in_silhouette:   تبقي',`**[ ${member.guild.memberCount} ]**`,true)
+        .setColor('RED')
+        .setFooter(`====ولكم منور السيرفر اتمنا لك الاستمتاع====`, 'https://cdn.discordapp.com/attachments/397818254439219217/399292026782351381/shy.png')
+    
+    var channel =member.guild.channels.find('name', 'welcome')
+    if (!channel) return;
+    channel.send({embed : embed});
+    })
+ });
 	client.on('message', async message => {
 		
 			let args = message.content.split(' ').slice(1);
