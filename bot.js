@@ -3620,8 +3620,7 @@ Server owner: __${guild.owner}__**`)
       var Canvas = require('canvas')
       var jimp = require('jimp')
 
-      const w = ['./img/w1.png',
-      './img/blue.png'];
+      const w = ['./img/blue.png'];
 
               let Image = Canvas.Image,
                   canvas = new Canvas(401, 202),
