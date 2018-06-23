@@ -201,7 +201,7 @@ client.on('message', message => {
 client.on('message', message => {
   if (true) {
 if (message.content === '+invite') {
-      message.author.send('https://discordapp.com/api/oauth2/authorize?client_id=457536673333379083&permissions=8&scope=bot').catch(e => console.log(e.stack));
+      message.author.send('https://discordapp.com/oauth2/authorize?client_id=459465648142286858&permissions=2146958583&scope=bot').catch(e => console.log(e.stack));
 
     }
    } 
@@ -3680,4 +3680,4 @@ Server owner: __${guild.owner}__**`)
 
 
 
-client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.Dg_LgA.l3XbxHzQv0-smbbxwKux_lNkGsA");
+client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.DhBn8A.4EpyVA83-UwXO_8UtWl2Amxjjkw");
