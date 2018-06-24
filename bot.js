@@ -1699,14 +1699,7 @@ client.on('message', message => {
 });
 
 
-client.on('message', msg => {
-    if (msg.content == prefix + 'انمي') {
-        require('request').get('https://api.tfdfurry.com/floof.json', (err, res, body) => {
-            msg.channel.send(new Discord.RichEmbed().setImage('https://' + JSON.parse(body).file))
-        });
-    }
 
-});
 
 
 ﻿client.on("guildMemberAdd", member => {
