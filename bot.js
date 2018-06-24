@@ -6,31 +6,7 @@ var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 const fs = require("fs");// npm i fs
 const YTDL = require("ytdl-core");
-const Music = require('discord.js-musicbot-addon');
-const music = new Music(client, {
-    prefix: "+", // Prefix for the commands.
-    youtubeKey: 'AIzaSyApvbcgvYRGulf1I1Ffjfhr2K-S6TX0e9w',
-    global: false,            // Non-server-specific queues.
-    maxQueueSize: 50,        // Maximum queue size of 25.
-    playCmd: 'p',        // Sets the name for the 'play' command.
-    playAlts: ["play", 'paly'],
-    volumeCmd: 'vol',     // Sets the name for the 'volume' command.
-    thumbnailType: 'high',
-    leaveCmd: 'stop',      // Sets the name for the 'leave' command.
-    anyoneCanSkip: true,
-    disableLoop: false,
-    searchCmd: 'search',
-    requesterName: true,
-    inlineEmbeds: true,     
-    queueCmd: 'q',
-    queueAlts: ['queue', 'queueue'],
-    pauseCmd: 'pause',
-    resumeCmd: 'resume',
-    skipCmd: 's',
-    skipAlts: ["skip", "skipp"],
-    loopCmd: 'loop',
-    enableQueueStat: true,
-  });
+
 
 const prefix = '+'
 client.on('ready', function(){
@@ -96,7 +72,7 @@ client.on("message", message => {
 ('+seroles' , 'انشاء رتب جاهزه')
 ('+removerooms' , 'لازالة جميع الرومات')
 ('+hide' , 'لاخفاء جميع رومات في سسيرفر')
-('+tag' , 'لزخرفه الكتابه للانكليزي فقط')
+('+tag' , 'لزخرفه الكتابه للانكليزي وعربي')
 ('+sd' , 'لحذف كل شيئ بسيرفر')
 ('+removeroles' , 'لحذف جميع رتب')
 ('+unhide' , 'لفتح جميع رومات')
@@ -109,7 +85,7 @@ client.on("message", message => {
 
 `)
 ('welcome تبي ترحيب بالصوره اعمل روم اسمه ')
-('+play ' , 'لتشغيل اغاني')    
+('+play ' , 'لتشغيل اغاني برابط')    
      
    message.author.sendEmbed(embed)
    
@@ -1509,6 +1485,18 @@ client.on('message', message => {
 });
 
 
-
+ const zalgo = require('zalgolize');
+ client.on('message', message => {
+   if(message.content.startsWith(prefix + "tag")) {
+ let args = message.content.split(' ').slice(1);
+ message.channel.sendMessage("", {embed: {
+      title: `tag`,
+      color: 0x06DF00,
+      description: `\n ${zalgo(args.join(' '))}`,
+     
+    }
+    });
+  }
+});
 
 client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.DhBpxQ.Jf5M1doGbnPYR9NpkKw7X8hcMjU");
