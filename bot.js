@@ -257,7 +257,8 @@ client.on("message", message => {
          .setThumbnail(message.author.avatarURL)
          .setDescription(`
 
-
+('+credits' , 'لمعرفه كردت')
+('+daily' , 'للحصول علي كردت')
 ('+id ' , 'لعرض معلوماتك') 
 ('+server' , 'لمعلومات سيرفر') 
 ('رابط السيرفر الي تكتب الاوامر بيه' ,' رابط  ')
