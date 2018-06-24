@@ -81,6 +81,8 @@ client.on("message", message => {
 البوت يقوم بطرد من ينشر سيرفر تحذير
 
 `)
+('welcome تبي ترحيب بالصوره اعمل روم اسمه ')     
+     
    message.author.sendEmbed(embed)
    
    }
