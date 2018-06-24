@@ -6,6 +6,68 @@ var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 const fs = require("fs");// npm i fs
 const yt = require('ytdl-core');
+const db = require('quick.db')
+const prefix = '+';
+client.on('message', async message => {
+   if(message.content.startsWith(prefix + "credits")) {
+ let args = messa+ge.content.split(' ').slice(1);
+
+var user = message.mentions.users.first() || message.author;
+        
+        var balance = await db.fetch(`userBalance_${user.id}`)
+        
+        if (balance === null) balance = 50;
+        
+        var embed = new Discord.RichEmbed()
+        .setTitle('Coin Balance')
+        .setDescription(`${user.username}, **انت لديك:\n:dollar: $${balance}**`)
+        .setColor('#ffffff')
+        .setFooter('Requested By ' + message.author.tag, message.author.avatarURL)
+        message.channel.send(embed)
+
+}
+});
+const ms = require('ms')
+client.on('message', async message => {
+   if(message.content.startsWith(prefix + "daily")) {
+    let cooldown = 8.64e+7,
+    amount = 250
+
+    let lastDaily = await db.fetch(`lastDaily_${message.author.id}`)
+    try {
+    db.fetch(`userBalance_${message.member.id}`).then(bucks => {
+    if(bucks == null){
+        db.set(`userBalance_${message.member.id}`, 50)}
+
+    else if (lastDaily !== null && cooldown - (Date.now() - lastDaily) > 0) {
+        let timeObj = ms(cooldown - (Date.now() - lastDaily))
+
+        let lastDailyEmbed = new Discord.RichEmbed()
+        .setAuthor(`Next Daily`)
+        .setColor('#ffffff')
+        .setDescription(`You sucessfully collected this, you must wait to collect next dily. Time Left: **${timeObj}**!`)
+        .setFooter('Requested By ' + message.author.tag, message.author.avatarURL)
+        message.channel.send(lastDailyEmbed)
+    } else {
+        db.set(`lastDaily_${message.author.id}`, Date.now());
+        db.add(`userBalance_${message.member.id}`, amount).then(i => {
+          var discord = require('discord.js')
+          var embed = new Discord.RichEmbed()
+          .setTitle('Todays Daily')
+          .setDescription(` you received your :dollar:$${amount}`)
+          .setColor('#ffffff')
+          .setFooter('Requested By ' + message.author.tag, message.author.avatarURL)
+          message.channel.send(embed);
+        })}
+    })} catch(err) {console.log(err)}
+}
+});
+
+
+
+
+
+
 
 client.on('ready', () => {
 console.log('Logging into discord..');
@@ -421,29 +483,7 @@ client.on('message', message => {
     seconds = seconds > 9 ? seconds : '0' + seconds
     return `${days > 0 ? `${days}:` : ''}${(hours || days) > 0 ? `${hours}:` : ''}${minutes}:${seconds}`
 };
-client.on('message', message => {
-	const prefix = '+'
-    if (message.author.id === client.user.id) return;
-    if (message.guild) {
-   let embed = new Discord.RichEmbed()
-    let args = message.content.split(' ').slice(1).join(' ');
-if(message.content.split(' ')[0] == prefix + 'bc') {
-    if (!args[1]) {
-return;
-}
-        message.guild.members.forEach(m => {
-   if(!message.member.hasPermission('ADMINISTRATOR')) return;
-            var bc = new Discord.RichEmbed()
-            .addField(' » الرسالة : ', args)
-            .setColor('#ff0000')
-            // m.send(`[${m}]`);
-            m.send(`${m}`,{embed: bc});
-        });
-    }
-    } else {
-        return;
-    }
-});
+
 client.on('message', message => {
                                 if(!message.channel.guild) return;
                         if (message.content.startsWith('+ping')) {
