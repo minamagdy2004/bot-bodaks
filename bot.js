@@ -5,7 +5,6 @@ const moment = require('moment');
 var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 const fs = require("fs");// npm i fs
-const YTDL = require("ytdl-core");
 
 const prefix = '+'
 client.on('ready', function(){
@@ -84,7 +83,7 @@ client.on("message", message => {
 
 `)
 ('welcome تبي ترحيب بالصوره اعمل روم اسمه ')  
-     
+('+play ' , 'لتشغيل اغنيه برابط')     
    message.author.sendEmbed(embed)
    
    }
@@ -1364,7 +1363,6 @@ let welcomer = member.guild.channels.find("name","welcome");
 
 
 const YTDL = require("ytdl-core");
-const prefix = '+';
 function play(connection, message) {
     var server = servers[message.guild.id];
     server.dispatcher = connection.playStream(YTDL(server.queue[0], {filter: "audioonly"}));
