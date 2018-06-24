@@ -1653,62 +1653,6 @@ client.on('message', message => {
 
 
 
-client.on('message', message => {
-
-if (!points[message.author.id]) points[message.author.id] = {
-    points: 0,
-  wins: 0,
-  loses: 0,
-  game: 0,
-
-  };
-  if (message.author.bot) return;
-
-
-if(!message.channel.guild) return;
-    let userData = points[message.author.id];
-
-if (message.content.startsWith(prefix + 'point')) {
-let pointss = userData.points
-try {
-                            pointss = shortNumber(pointss);
-                        } catch (error) {
-                            pointss = 0;
-                        }
-                        let wins = userData.wins
-try {
-                            wins = shortNumber(wins);
-                        } catch (error) {
-                            wins = 0;
-                        }
-                        let loses = userData.loses
-try {
-                            loses = shortNumber(loses);
-                        } catch (error) {
-                            loses  = 0;
-                        }
-                         let games = userData.game
-try {
-                            games = shortNumber(games);
-                        } catch (error) {
-                            games  = 0;
-                        }
-    let embed = new Discord.RichEmbed()
-    .setAuthor(`${message.author.tag}`, message.author.avatarURL)
-    .setColor('#000000')
-    .setDescription(`**S Bot
-
-:white_check_mark: عدد الفوز : ${wins}
-:x: عدد الخسارة: ${loses}
-:label:التقاط: ${pointss}
-:video_game: عدد مرات اللعب: ${games}**` , '');
-    message.channel.sendEmbed(embed)
-  }
-  fs.writeFile("./point.json", JSON.stringify(points), (err) => {
-    if (err) console.error(err)
-  })
-
-});
 
  =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
 client.on('message',function(message) {
