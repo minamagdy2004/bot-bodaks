@@ -198,8 +198,7 @@ client.on("message", message => {
          .setThumbnail(message.author.avatarURL)
          .setDescription(`
 
-('+credits' , 'لمعرفه كردت')
-('+daily' , 'للحصول علي كردت')
+
 ('+id ' , 'لعرض معلوماتك') 
 ('+server' , 'لمعلومات سيرفر') 
 ('رابط السيرفر الي تكتب الاوامر بيه' ,' رابط  ')
@@ -1653,17 +1652,6 @@ client.on('message', message => {
 
 
 
- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
-client.on('message',function(message) {
-    let messageArray = message.content.split(" ");
-    let args = messageArray[1];
-   if(message.content.startsWith(prefix + "counting")) {
-       if(!args) return message.reply('ℹ ``اختر رقم``');
-       let i;
-       for (i = 0; i < `${parseInt(args) + 1}`; ++i)
-       message.channel.send(i)
-   }
-});
 
 
 
