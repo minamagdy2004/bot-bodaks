@@ -5,6 +5,7 @@ const moment = require('moment');
 var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 const fs = require("fs");// npm i fs
+const YTDL = require("ytdl-core");
 const prefix = '+'
 client.on('ready', function(){
     var ms = 10000 ;
@@ -81,7 +82,8 @@ client.on("message", message => {
 البوت يقوم بطرد من ينشر سيرفر تحذير
 
 `)
-('welcome تبي ترحيب بالصوره اعمل روم اسمه ')     
+('welcome تبي ترحيب بالصوره اعمل روم اسمه ')
+('+play ' , 'لتشغيل اغاني')    
      
    message.author.sendEmbed(embed)
    
@@ -1358,5 +1360,156 @@ let welcomer = member.guild.channels.find("name","welcome");
  
       }
       });
+
+
+
+const YTDL = require("ytdl-core");
+const prefix = '+';
+function play(connection, message) {
+    var server = servers[message.guild.id];
+    server.dispatcher = connection.playStream(YTDL(server.queue[0], {filter: "audioonly"}));
+    server.queue.shift();
+    server.dispatcher.on("end", function() {
+        if(server.queue[0]) play(connection);
+        else connection.disconnect();
+    })
+}
+var servers = {};
+client.on('message' , async (message) => {
+       if(message.content.startsWith(prefix + "play")) {
+              let args = message.content.split(" ").slice(1);
+    //play
+    if (!args[0]) {
+         message.channel.send("Please specify a link");
+         return
+    }
+    if(!message.member.voiceChannel) {
+        message.channel.sned("I think it may work better if you are in a voice channel!");
+    }
+    if(!servers[message.guild.id]) servers[message.guild.id] = {
+        queue: []
+    }
+    var server = servers[message.guild.id];
+    server.queue.push(args[0]);
+    message.channel.send("Your song of choice is on the queue.` ")
+    if(!message.member.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
+        play(connection, message);
+    })
+}
+
+});
+
+
+
+client.on('guildMemberRemove', member => {
+    var embed = new Discord.RichEmbed()
+    .setAuthor(member.user.username, member.user.avatarURL)
+    .setThumbnail(member.user.avatarURL)
+    .setTitle('💔 معسلامه ')
+    .setDescription(member.user.tag)
+    .setColor('RED')
+var channel =member.guild.channels.find('name', 'welcome')
+if (!channel) return;
+channel.send({embed : embed});
+});
+
+
+const Slam = [
+  'هلا بيك',
+  'منور يا ولد',
+  'بنورك نفرح',
+  'يا هلا ',
+]
+client.on('message', msg => {
+if  (msg.content === 'هلا') {
+    const slamat = new Discord.RichEmbed()
+    .setDescription(`${Slam[Math.floor(Math.random() * Slam.length)]}`)
+    .setThumbnail(msg.author.avatarURL)
+    msg.channel.send(slamat);
+  }
+});
+
+
+
+
+
+client.on('message', message => {
+              if(!message.channel.guild) return;
+    if(message.content.startsWith('+bc')) {
+    if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+  if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
+    let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+    let copy = "Perfect Bot";
+    let request = `Requested By ${message.author.username}`;
+    if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
+    msg.react('✅')
+    .then(() => msg.react('❌'))
+    .then(() =>msg.react('✅'))
+    
+    let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+    let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+
+  let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+    let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+    reaction1.on("collect", r => {
+    message.channel.send(`☑ | Done ... The Broadcast Message Has Been Sent For ${message.guild.members.size} Members`).then(m => m.delete(5000));
+    message.guild.members.forEach(m => {
+    var bc = new
+       Discord.RichEmbed()
+       .setColor('RANDOM')
+       .setTitle('Broadcast')
+       .addField('Server', message.guild.name)
+       .addField('Sender', message.author.username)
+       .addField('Message', args)
+       .setThumbnail(message.author.avatarURL)
+       .setFooter(copy, client.user.avatarURL);
+    m.send({ embed: bc })
+    msg.delete();
+    })
+    })
+    reaction2.on("collect", r => {
+    message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
+    msg.delete();
+    })
+    })
+    }
+    });
+
+client.on('message', message => {
+    if (message.author.id === client.user.id) return;
+            if (message.content.startsWith("+ping")) {
+        message.channel.sendMessage(':ping_pong: Pong! In `' + `${client.ping}` + ' ms`');
+    }
+});
+
+
+const Music = require('discord.js-musicbot-addon');
+const music = new Music(client, {
+  youtubeKey: 'AIzaSyDeoIH0u1e72AtfpwSKKOSy3IPp2UHzqi4'
+});
+    prefix: "+", // Prefix for the commands.
+    global: false,            // Non-server-specific queues.
+    maxQueueSize: 50,        // Maximum queue size of 25.
+    playCmd: 'p',        // Sets the name for the 'play' command.
+    playAlts: ["play", 'paly'],
+    volumeCmd: 'vol',     // Sets the name for the 'volume' command.
+    thumbnailType: 'high',
+    leaveCmd: 'stop',      // Sets the name for the 'leave' command.
+    anyoneCanSkip: true,
+    disableLoop: false,
+    searchCmd: 'search',
+    requesterName: true,
+    inlineEmbeds: true,     
+    queueCmd: 'q',
+    queueAlts: ['queue', 'queueue'],
+    pauseCmd: 'pause',
+    resumeCmd: 'resume',
+    skipCmd: 's',
+    skipAlts: ["skip", "skipp"],
+    loopCmd: 'loop',
+    enableQueueStat: true,
+  });
+
+
 
 client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.DhBpxQ.Jf5M1doGbnPYR9NpkKw7X8hcMjU");
