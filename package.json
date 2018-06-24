@@ -35,6 +35,7 @@
     "common-tags": "^1.8.0",
     "math-expression-evaluator": "^1.2.17",
     "figlet": "^1.2.0",
+    "zalgolize": "^1.2.4",
     "ytdl-core": "^0.20.4"
   },
   "devDependencies": {
