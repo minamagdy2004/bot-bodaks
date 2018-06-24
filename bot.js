@@ -6,6 +6,40 @@ var Canvas = require('canvas');// npm i canvas
 var jimp = require('jimp');// npm i jimp 
 const fs = require("fs");// npm i fs
 const YTDL = require("ytdl-core");
+const prefix = '+';
+function play(connection, message) {
+    var server = servers[message.guild.id];
+    server.dispatcher = connection.playStream(YTDL(server.queue[0], {filter: "audioonly"}));
+    server.queue.shift();
+    server.dispatcher.on("end", function() {
+        if(server.queue[0]) play(connection);
+        else connection.disconnect();
+    })
+}
+var servers = {};
+client.on('message' , async (message) => {
+       if(message.content.startsWith(prefix + "play")) {
+              let args = message.content.split(" ").slice(1);
+    //play
+    if (!args[0]) {
+         message.channel.send("Please specify a link");
+         return
+    }
+    if(!message.member.voiceChannel) {
+        message.channel.sned("I think it may work better if you are in a voice channel!");
+    }
+    if(!servers[message.guild.id]) servers[message.guild.id] = {
+        queue: []
+    }
+    var server = servers[message.guild.id];
+    server.queue.push(args[0]);
+    message.channel.send("Your song of choice is on the queue.` ")
+    if(!message.member.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
+        play(connection, message);
+    })
+}
+
+});
 
 
 const prefix = '+'
@@ -1499,40 +1533,6 @@ client.on('message', message => {
   }
 });
 
-const prefix = '+';
-function play(connection, message) {
-    var server = servers[message.guild.id];
-    server.dispatcher = connection.playStream(YTDL(server.queue[0], {filter: "audioonly"}));
-    server.queue.shift();
-    server.dispatcher.on("end", function() {
-        if(server.queue[0]) play(connection);
-        else connection.disconnect();
-    })
-}
-var servers = {};
-client.on('message' , async (message) => {
-       if(message.content.startsWith(prefix + "play")) {
-              let args = message.content.split(" ").slice(1);
-    //play
-    if (!args[0]) {
-         message.channel.send("Please specify a link");
-         return
-    }
-    if(!message.member.voiceChannel) {
-        message.channel.sned("I think it may work better if you are in a voice channel!");
-    }
-    if(!servers[message.guild.id]) servers[message.guild.id] = {
-        queue: []
-    }
-    var server = servers[message.guild.id];
-    server.queue.push(args[0]);
-    message.channel.send("Your song of choice is on the queue.` ")
-    if(!message.member.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
-        play(connection, message);
-    })
-}
-
-});
 
 
 
