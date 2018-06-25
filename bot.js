@@ -674,7 +674,7 @@ client.on("message", message => {
 ('+unhide' , 'لفتح جميع رومات')
 ('+ban' , 'لاعطاء باند')
 ('+unbans' , 'لفك باند عن جميع')
-('+play ' , 'لتشغيل اغنيه برابط') 
+('+play ' , 'لتشغيل اغنيه') 
 ('+owner' , 'كود تأكد من ملكيه البوت')
 تحذير :البوت يمتلك لوق يعمل في روم يسمى log
 البوت يقوم بطرد من ينشر سيرفر تحذير
@@ -2055,4 +2055,4 @@ client.on('message', message => {
 
 
 
-client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.DhGSeA.oIEH2LroNcwO26H-MwFNggFn6qw");
+client.login("NDU5NDY1NjQ4MTQyMjg2ODU4.DhJtXA.TUS3LOYM_jbJmQVzxTX1HSYxBgI");
